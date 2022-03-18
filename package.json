@@ -1,0 +1,33 @@
+{
+    "name": "pnp-audit",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./bin/cli.js",
+    "type": "module",
+    "bin": {
+        "pnp-audit": "./bin/cli.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Zet-Warden/cso-pnp-org-fb-scraper.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Zet-Warden/cso-pnp-org-fb-scraper/issues"
+    },
+    "homepage": "https://github.com/Zet-Warden/cso-pnp-org-fb-scraper#readme",
+    "dependencies": {
+        "chalk": "^5.0.1",
+        "dotenv": "^16.0.0",
+        "google-spreadsheet": "^3.2.0",
+        "inquirer": "^8.2.1",
+        "mongoose": "^6.2.7",
+        "nanospinner": "^1.0.0",
+        "puppeteer": "^13.5.1"
+    }
+}
