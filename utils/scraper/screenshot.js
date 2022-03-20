@@ -1,13 +1,14 @@
-async function screenshotPost(post, filename) {
+async function screenshotPost(post, path, updateFn) {
     await post.screenshot({
-        path: `./screenshots/${filename}.png`,
+        path: path,
     });
+    updateFn();
 }
 
-async function screenshotPosts(posts) {
+async function screenshotPosts(posts, pathFn) {
     const screenshots = [];
     posts.forEach((post, index) => {
-        screenshots.push(screenshotPost(post, index + 1));
+        screenshots.push(screenshotPost(post, pathFn(post, index), updateFn));
     });
 
     await Promise.all(screenshots);

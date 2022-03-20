@@ -105,8 +105,8 @@ async function scrape({
     await page.mouse.move(0, 0);
 
     return {
-        takeScreenshotOfPosts: async () => {
-            await screenshotPosts(posts);
+        takeScreenshotOfPosts: async (pathFn, updateFn) => {
+            await screenshotPosts(posts, pathFn, updateFn);
         },
         captions: captions,
         links: links,

@@ -70,8 +70,8 @@ function convertFbDateStringToDate(fbDateTimeString) {
 
     let actualMonth = monthDictionary.get(month);
     if (actualMonth == undefined) {
-        console.log(`Cannot evaluate month format: ${month}`);
-        console.log("Assuming it is today's month");
+        // console.log(`Cannot evaluate month format: ${month}`);
+        // console.log("Assuming it is today's month");
 
         //assume today's month when FB date is 5s, 51m, etc...
         //this indicates seconds, minutes, or hours ago
@@ -88,7 +88,9 @@ function convertFbDateStringToDate(fbDateTimeString) {
     // }
 
     return new Date(
-        `${actualMonth} ${day} ${year ? year : new Date().getFullYear()}`
+        `${actualMonth} ${day ? day : new Date().getDate()} ${
+            year ? year : new Date().getFullYear()
+        }`
     );
 }
 

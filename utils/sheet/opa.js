@@ -1,20 +1,28 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import OpaReference from '../../model/reference.js';
+import mongoose from 'mongoose';
 
-const doc = new GoogleSpreadsheet(
-    '1RxTwUTd1dYHIN1B9Buwcq8T_hyZp3Fm1P1T8jkeW7EQ'
-);
-doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-});
 let opaSheet, rows;
+let hasLoaded = false;
 
-await doc.loadInfo();
-opaSheet = doc.sheetsByTitle['OPA'];
-rows = await opaSheet.getRows();
+async function load() {
+    const doc = new GoogleSpreadsheet(
+        '1RxTwUTd1dYHIN1B9Buwcq8T_hyZp3Fm1P1T8jkeW7EQ'
+    );
+    doc.useServiceAccountAuth({
+        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    });
+
+    await Promise.all([doc.loadInfo()]);
+    opaSheet = doc.sheetsByTitle['OPA'];
+    rows = await opaSheet.getRows();
+    hasLoaded = true;
+}
 
 async function verifyPostByCaption(caption) {
+    if (!hasLoaded) await load();
+
     const opaMatch = /\bOPA-\d{5}\b/g;
     const matchResult = caption.match(opaMatch);
 
